@@ -46,7 +46,9 @@ developing applications that use %{name}.
 
 %install
 %cmake_install
-mv %{buildroot}/usr/lib/cmake %{buildroot}%{_libdir}/
+%ifnarch %ix86
+    mv %{buildroot}/usr/lib/cmake %{buildroot}%{_libdir}/
+%endif
 
 
 %files
