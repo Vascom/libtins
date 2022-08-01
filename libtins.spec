@@ -6,6 +6,8 @@ Summary:        A high-level, multiplatform C++ network packet sniffing and craf
 License:        BSD
 URL:            https://github.com/mfontanini/libtins
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/mfontanini/libtins/pull/472
+Patch0:         %{name}-cmake_libdir.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -36,7 +38,7 @@ The %{name}-docs package contains document files for
 developing applications that use %{name}.
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -46,9 +48,6 @@ developing applications that use %{name}.
 
 %install
 %cmake_install
-%ifnarch %ix86
-    mv %{buildroot}/usr/lib/cmake %{buildroot}%{_libdir}/
-%endif
 
 
 %files
