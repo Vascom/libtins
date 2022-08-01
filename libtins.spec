@@ -29,11 +29,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
-%package        docs
+%package        doc
 Summary:        Document files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+BuildArch:      noarch
 
-%description    docs
+%description    doc
 The %{name}-docs package contains document files for
 developing applications that use %{name}.
 
@@ -61,7 +62,7 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/*.pc
 %{_libdir}/cmake/%{name}
 
-%files docs
+%files doc
 %doc %{__cmake_builddir}/docs
 
 
