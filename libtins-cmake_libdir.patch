@@ -1,0 +1,29 @@
+From 18cbab4fc7f1c0807eaabac8c730d2d911832a27 Mon Sep 17 00:00:00 2001
+From: Scott K Logan <logans@cottsay.net>
+Date: Sat, 14 May 2022 11:09:58 -0700
+Subject: [PATCH] Use CMAKE_INSTALL_LIBDIR in CONF_CMAKE_INSTALL_DIR (#472)
+
+On some platforms (like RedHat ones), CMAKE_INSTALL_LIBDIR is set to
+`lib64` instead of `lib`. The CMake files should also be installed to
+`lib64`, but because CONF_CMAKE_INSTALL_DIR is set unconditionally to
+use `lib`, the proper path can't be configured.
+
+This change makes CONF_CMAKE_INSTALL_DIR use the configured
+CMAKE_INSTALL_LIBDIR value, which defaults to `lib`.
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d3aacdb3..696385f7 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -318,7 +318,7 @@ ENDIF()
+ # **********************************
+ 
+ if(UNIX)
+-    set(CONF_CMAKE_INSTALL_DIR lib/cmake/libtins)
++    set(CONF_CMAKE_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/libtins")
+ else()
+     set(CONF_CMAKE_INSTALL_DIR CMake)
+ endif()
